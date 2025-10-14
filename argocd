@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: Application 
+metadata: 
+  name: argocd-app 
+  namespace: argocd 
+spec: 
+  project: default 
+  source: 
+    repoURL: https://github.com/SMARTOVATEAI/infra 
+    targetRevision: HEAD  
+    path: kubernetes-manifests 
+  destination: 
+    server: https://kubernetes.default.svc 
+    namespace: default 
+  syncPolicy: 
+    syncOptions: - ApplyOutOfSyncOnly=true 
+    automated: 
+      selfHeal: true 
+      prune: true 
